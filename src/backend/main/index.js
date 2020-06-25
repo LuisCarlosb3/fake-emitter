@@ -1,21 +1,31 @@
 import DeviceList from './device-list.js'
-
+import DeviceController from '../events/device-controller.js'
+import StorageManager from '../service/storage-manager.js'
+const Swal = require('sweetalert2')
 class MainApplication {
+  constructor (storageManager) {
+    this.storageManager = storageManager
+  }
+
   async config (ids) {
     const deviceListEl = document.getElementById(ids.devicesList)
     const btOpenModal = document.getElementById(ids.btOpenAddModal)
     const btAddDevice = document.getElementById(ids.btAddDevice)
     const btRemoveDevice = document.getElementById(ids.btRemoveDevice)
 
-    this.deviceList = new DeviceList(deviceListEl)
-    this.deviceList.initialize()
+    const deviceController = new DeviceController(this.storageManager)
+    const deviceList = new DeviceList(deviceListEl, deviceController)
+    await deviceList.initialize()
 
-    btAddDevice.addEventListener('click', () => this.deviceList.addDevice())
-    btRemoveDevice.addEventListener('click', () => this.deviceList.removeDevice())
+    btAddDevice.addEventListener('click', () => deviceList.addDevice())
+    btRemoveDevice.addEventListener('click', () => deviceList.removeDevice())
   }
 }
-window.onload = function () {
-  const application = new MainApplication()
+
+const storageManager = new StorageManager()
+window.onload = async function () {
+  await storageManager.load()
+  const application = new MainApplication(storageManager)
   application.config({
     btOpenAddModal: 'bt-open-add-modal',
     btAddDevice: 'bt-add-device',

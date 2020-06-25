@@ -1,13 +1,11 @@
-import DeviceController from '../events/device-controller.js'
 
 export default class DeviceList {
-  constructor (deviceList) {
-    this.deviceController = new DeviceController()
+  constructor (deviceList, deviceController) {
     this.element = deviceList
+    this.deviceController = deviceController
   }
 
   async initialize () {
-    await this.deviceController.load()
     const devices = this.deviceController.getDevices()
     for (const key in devices) {
       const divEl = this.createDeviceListItem(devices[key], key)
