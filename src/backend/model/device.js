@@ -1,5 +1,6 @@
 export default class Device {
   constructor (tag) {
+    this.id = Date.now()
     this.tag = tag
     this.attributes = []
     this.state = false
