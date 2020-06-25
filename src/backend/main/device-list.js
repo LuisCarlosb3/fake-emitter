@@ -7,16 +7,20 @@ export default class DeviceList {
 
   async initialize () {
     const devices = this.deviceController.getDevices()
-    for (const device in devices) {
+    for (const device of devices) {
       const divEl = this.createDeviceListItem(device)
       this.element.appendChild(divEl)
     }
   }
 
-  async addDevice () {
-    const device = await this.deviceController.add('my tag')
-    const deviceItem = this.createDeviceListItem(device)
-    this.element.appendChild(deviceItem)
+  async addDevice (newTag) {
+    const device = await this.deviceController.add(newTag)
+    if (device) {
+      const deviceItem = this.createDeviceListItem(device)
+      this.element.appendChild(deviceItem)
+      return true
+    }
+    return false
   }
 
   async removeDevice (id) {

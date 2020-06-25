@@ -12,10 +12,17 @@ export default class DeviceController {
   }
 
   async add (tag) {
-    const newDevice = new Device(tag)
-    this.devices.push(newDevice)
-    this.save()
-    return newDevice
+    const alreadyExist = this.devices.filter(value => {
+      return value.tag === tag
+    })
+    if (alreadyExist.length === 0) {
+      const newDevice = new Device(tag)
+      this.devices.push(newDevice)
+      this.save()
+      return newDevice
+    } else {
+      return false
+    }
   }
 
   update (deviceUpdated, index) {

@@ -1,5 +1,5 @@
 import DeviceList from './device-list.js'
-import DeviceController from '../events/device-controller.js'
+import DeviceController from '../controller/device-controller.js'
 import StorageManager from '../service/storage-manager.js'
 import AddDeviceModal from './add-device-modal.js'
 class MainApplication {
@@ -10,8 +10,10 @@ class MainApplication {
   async config (ids) {
     const deviceListEl = document.getElementById(ids.devicesList)
     const btOpenModal = document.getElementById(ids.btOpenAddModal)
-    const btAddDevice = document.getElementById(ids.btAddDevice)
+    const btAddDevice = document.getElementById(ids.btConfirmAddDevice)
+    const btCancelAddDevice = document.getElementById(ids.btCancelAddDevice)
     const modalAddDevice = document.getElementById(ids.modalAddDevice)
+    const inputNewDeviceTag = document.getElementById(ids.newTagDeviceInput)
 
     const deviceController = new DeviceController(this.storageManager)
     const deviceList = new DeviceList(deviceListEl, deviceController)
@@ -19,8 +21,19 @@ class MainApplication {
 
     await deviceList.initialize()
 
-    btAddDevice.addEventListener('click', () => deviceList.addDevice())
     btOpenModal.addEventListener('click', () => { modalElement.openModal() })
+    btAddDevice.addEventListener('click', async () => {
+      const newTag = inputNewDeviceTag.value
+      if (newTag.trim().length > 0) {
+        const response = await deviceList.addDevice(newTag)
+        if (!response) {
+          console.log('name already exists')
+        }
+      } else {
+        console.log('inisira corretamente')
+      }
+    })
+    btCancelAddDevice.addEventListener('click', () => deviceList.closeModal())
     window.onclick = (event) => {
       if (event.target === modalAddDevice) {
         modalElement.closeModal()
