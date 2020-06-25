@@ -10,14 +10,13 @@ class MainApplication {
     const deviceListEl = document.getElementById(ids.devicesList)
     const btOpenModal = document.getElementById(ids.btOpenAddModal)
     const btAddDevice = document.getElementById(ids.btAddDevice)
-    const btRemoveDevice = document.getElementById(ids.btRemoveDevice)
 
     const deviceController = new DeviceController(this.storageManager)
     const deviceList = new DeviceList(deviceListEl, deviceController)
     await deviceList.initialize()
 
     btAddDevice.addEventListener('click', () => deviceList.addDevice())
-    btRemoveDevice.addEventListener('click', () => deviceList.removeDevice())
+    btOpenModal.addEventListener('click', () => {})
   }
 }
 
@@ -28,7 +27,6 @@ window.onload = async function () {
   application.config({
     btOpenAddModal: 'bt-open-add-modal',
     btAddDevice: 'bt-add-device',
-    btRemoveDevice: 'bt-remove-device',
     devicesList: 'devices-list'
   })
 }
