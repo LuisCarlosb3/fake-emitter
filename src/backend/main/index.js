@@ -33,7 +33,7 @@ class MainApplication {
         console.log('inisira corretamente')
       }
     })
-    btCancelAddDevice.addEventListener('click', () => deviceList.closeModal())
+    btCancelAddDevice.addEventListener('click', () => modalElement.closeModal())
     window.onclick = (event) => {
       if (event.target === modalAddDevice) {
         modalElement.closeModal()
