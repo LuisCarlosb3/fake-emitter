@@ -7,32 +7,30 @@ export default class DeviceList {
 
   async initialize () {
     const devices = this.deviceController.getDevices()
-    for (const key in devices) {
-      const divEl = this.createDeviceListItem(devices[key], key)
+    for (const device in devices) {
+      const divEl = this.createDeviceListItem(device)
       this.element.appendChild(divEl)
     }
   }
 
   async addDevice () {
-    const device = { tag: 'my tag', attributes: [], state: false }
-    const id = await this.deviceController.add(device)
-    const deviceItem = this.createDeviceListItem(device, id)
+    const device = await this.deviceController.add('my tag')
+    const deviceItem = this.createDeviceListItem(device)
     this.element.appendChild(deviceItem)
   }
 
   async removeDevice (id) {
-    const lastId = this.deviceController.getDevices().length - 1
-    const wasRemoved = await this.deviceController.delete(lastId)
+    const wasRemoved = await this.deviceController.delete(id)
     if (wasRemoved) {
-      document.getElementById(lastId).remove()
-      console.log(this.deviceController.getDevices().length)
+      document.getElementById(id).remove()
     }
   }
 
-  createDeviceListItem (device, index) {
+  createDeviceListItem (device) {
     const div = document.createElement('div')
-    div.setAttribute('id', index)
-    div.appendChild(document.createTextNode(`${device.tag}:${index}`))
+    div.setAttribute('id', device.id)
+    div.appendChild(document.createTextNode(`${device.tag}:${device.id}`))
+    div.addEventListener('click', () => this.removeDevice(device.id))
     return div
   }
 }
