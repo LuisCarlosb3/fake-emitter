@@ -14,7 +14,7 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadFile('src/views/index.html')
   // false to resize
-  win.setResizable(false)
+  win.setResizable(true)
   // Build menu from template
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
   // Insert menu
