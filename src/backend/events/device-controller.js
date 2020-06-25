@@ -1,3 +1,4 @@
+import Device from '../model/device.js'
 
 export default class DeviceController {
   constructor (deviceRepository) {
@@ -10,10 +11,11 @@ export default class DeviceController {
     return this.devices
   }
 
-  async add (newDevice) {
+  async add (tag) {
+    const newDevice = new Device(tag)
     this.devices.push(newDevice)
     this.save()
-    return this.devices.indexOf(newDevice)
+    return newDevice
   }
 
   update (deviceUpdated, index) {
@@ -25,12 +27,14 @@ export default class DeviceController {
   }
 
   async delete (index) {
-    if (index < this.devices.length && index >= 0) {
-      this.devices.splice(index, 1)
-      this.save()
-      return true
-    }
-    return false
+    let isDeleted = false
+    this.devices = this.devices.filter((value) => {
+      if (value.id !== index) {
+        return true
+      }
+      isDeleted = true
+    })
+    return isDeleted
   }
 
   save () {
