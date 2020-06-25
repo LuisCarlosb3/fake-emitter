@@ -2,6 +2,7 @@ import DeviceList from './device-list.js'
 import DeviceController from '../controller/device-controller.js'
 import StorageManager from '../service/storage-manager.js'
 import AddDeviceModal from './add-device-modal.js'
+import { buttonOpenModal, buttonCloseModal, buttonAddDevice } from '../events/events-factory.js'
 class MainApplication {
   constructor (storageManager) {
     this.storageManager = storageManager
@@ -9,9 +10,6 @@ class MainApplication {
 
   async config (ids) {
     const deviceListEl = document.getElementById(ids.devicesList)
-    const btOpenModal = document.getElementById(ids.btOpenAddModal)
-    const btAddDevice = document.getElementById(ids.btConfirmAddDevice)
-    const btCancelAddDevice = document.getElementById(ids.btCancelAddDevice)
     const modalAddDevice = document.getElementById(ids.modalAddDevice)
     const inputNewDeviceTag = document.getElementById(ids.newTagDeviceInput)
 
@@ -20,20 +18,10 @@ class MainApplication {
     const modalElement = new AddDeviceModal(modalAddDevice)
 
     await deviceList.initialize()
+    buttonOpenModal(ids.btOpenAddModal, modalElement)
+    buttonCloseModal(ids.btCancelAddDevice, modalElement)
+    buttonAddDevice(ids.btConfirmAddDevice, deviceList, inputNewDeviceTag)
 
-    btOpenModal.addEventListener('click', () => { modalElement.openModal() })
-    btAddDevice.addEventListener('click', async () => {
-      const newTag = inputNewDeviceTag.value
-      if (newTag.trim().length > 0) {
-        const response = await deviceList.addDevice(newTag)
-        if (!response) {
-          console.log('name already exists')
-        }
-      } else {
-        console.log('inisira corretamente')
-      }
-    })
-    btCancelAddDevice.addEventListener('click', () => modalElement.closeModal())
     window.onclick = (event) => {
       if (event.target === modalAddDevice) {
         modalElement.closeModal()
