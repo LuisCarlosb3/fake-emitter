@@ -1,7 +1,6 @@
 import DeviceList from './device-list.js'
 import DeviceController from '../events/device-controller.js'
 import StorageManager from '../service/storage-manager.js'
-const Swal = require('sweetalert2')
 class MainApplication {
   constructor (storageManager) {
     this.storageManager = storageManager
@@ -33,3 +32,6 @@ window.onload = async function () {
     devicesList: 'devices-list'
   })
 }
+require('electron').remote.getCurrentWindow().on('close', async (e) => {
+  await storageManager.save()
+})
