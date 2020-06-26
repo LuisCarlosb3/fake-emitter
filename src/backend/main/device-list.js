@@ -59,7 +59,7 @@ export default class DeviceList {
     const newStatusButton = document.importNode(statusButton, true)
 
     const buttonStateId = `change-state-${device.id}`
-    newStatusButton.textContent = 'OFF'
+    newStatusButton.textContent = device.state ? 'ON' : 'OFF'
     newStatusButton.setAttribute('id', buttonStateId)
     newStatusButton.addEventListener('click', () => this.changeStatus(device.id, newStatusButton))
 
