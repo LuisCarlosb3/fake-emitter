@@ -10,11 +10,13 @@ export default class UpdateDeviceModal {
   openModal (device, deleteAction, updateAction) {
     this.modal.display = 'block'
     this.tag.value = device.tag
-    this.btDelete.onclick = () => {
+    this.btDelete.onclick = (e) => {
+      e.preventDefault()
       this.closeModal()
       deleteAction()
     }
-    this.btUpdate.onclick = () => {
+    this.btUpdate.onclick = (e) => {
+      e.preventDefault()
       const newTag = this.tag.value
       console.log(newTag)
       if (newTag.trim().length > 0) {
