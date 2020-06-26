@@ -30,11 +30,26 @@ export default class DeviceList {
     }
   }
 
+  changeStatus (id, stateButton) {
+    const newState = this.deviceController.updateState(id)
+    stateButton.textContent = newState ? 'ON' : 'OFF'
+  }
+
   createDeviceListItem (device) {
     const div = document.createElement('div')
     div.setAttribute('id', device.id)
-    div.appendChild(document.createTextNode(`${device.tag}:${device.id}`))
-    div.addEventListener('click', () => this.removeDevice(device.id))
+    const divName = document.createElement('div')
+
+    const stateButton = document.createElement('button')
+    const buttonStateId = `change-state-${device.id}`
+    stateButton.textContent = 'OFF'
+    stateButton.setAttribute('id', buttonStateId)
+
+    divName.appendChild(document.createTextNode(`${device.tag}:${device.id}`))
+    divName.addEventListener('click', () => this.removeDevice(device.id))
+    div.appendChild(divName)
+    div.appendChild(stateButton)
+    stateButton.addEventListener('click', () => this.changeStatus(device.id, stateButton))
     return div
   }
 }

@@ -1,9 +1,9 @@
 export default class Device {
-  constructor (tag) {
-    this.id = Date.now()
+  constructor (tag, id, attributes, state) {
+    this.id = id || Date.now()
     this.tag = tag
-    this.attributes = []
-    this.state = false
+    this.attributes = attributes || []
+    this.state = state || false
   }
 
   addAttribute (name, value) {

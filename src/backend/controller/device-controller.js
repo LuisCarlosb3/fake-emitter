@@ -25,15 +25,22 @@ export default class DeviceController {
     }
   }
 
-  update (deviceUpdated, index) {
-    if (index < this.devices.length && index >= 0) {
-      return false
-    }
-    this.device[index] = deviceUpdated
-    this.save()
+  updateAttribute (deviceUpdated) {
+
   }
 
-  async delete (index) {
+  updateState (deviceDataId) {
+    let newState
+    for (const dev of this.devices) {
+      if (dev.id === deviceDataId) {
+        dev.changeState()
+        newState = dev.state
+      }
+    }
+    return newState
+  }
+
+  delete (index) {
     let isDeleted = false
     this.devices = this.devices.filter((value) => {
       if (value.id !== index) {
@@ -49,6 +56,10 @@ export default class DeviceController {
   }
 
   load () {
-    this.devices = this.deviceRepository.getData('devices')
+    const devicesData = this.deviceRepository.getData('devices')
+    for (const dev of devicesData) {
+      const newDev = new Device(dev.tag, dev.id, dev.attributes, dev.state)
+      this.devices.push(newDev)
+    }
   }
 }
