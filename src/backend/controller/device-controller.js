@@ -26,7 +26,18 @@ export default class DeviceController {
   }
 
   updateAttribute (deviceUpdated) {
-
+    const alreadyExist = this.devices.filter(value => {
+      return (value.tag === deviceUpdated.tag && value.id !== deviceUpdated.id)
+    })
+    if (alreadyExist.length === 0) {
+      for (const key in this.devices) {
+        if (this.devices[key].id === deviceUpdated.id) {
+          this.devices[key] = deviceUpdated
+        }
+      }
+      return true
+    }
+    return false
   }
 
   updateState (deviceDataId) {

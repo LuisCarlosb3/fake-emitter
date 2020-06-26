@@ -16,7 +16,6 @@ class MainApplication {
 
     const modalUpdateDevice = document.getElementById(ids.modalUpdateDevice)
     const modalTagDevice = document.getElementById(ids.modalTagDevice)
-    const modalStateDevice = document.getElementById(ids.modalStateDevice)
     const modalAttributesListDevice = document.getElementById(ids.modalAttributesListDevice)
     const modalBtUpdateDevice = document.getElementById(ids.modalBtUpdateDevice)
     const modalBtCancelDevice = document.getElementById(ids.modalBtCancelDevice)
@@ -25,8 +24,8 @@ class MainApplication {
     const modalElement = new AddDeviceModal(modalAddDevice)
 
     const updateModalEl = new UpdateDeviceModal(
-      modalUpdateDevice, modalTagDevice, modalStateDevice,
-      modalAttributesListDevice, modalBtUpdateDevice, modalBtCancelDevice,
+      modalUpdateDevice, modalTagDevice, modalAttributesListDevice,
+      modalBtUpdateDevice, modalBtCancelDevice,
       modalBtDeleteDevice
     )
     const deviceController = new DeviceController(this.storageManager)
@@ -62,7 +61,6 @@ window.onload = async function () {
     newTagDeviceInput: 'new-device-tag',
     modalUpdateDevice: 'modal-device',
     modalTagDevice: 'modal-device-tag',
-    modalStateDevice: 'modal-device-state',
     modalAttributesListDevice: 'modal-device-attributes',
     modalBtUpdateDevice: 'bt-modal-confirm-update-device',
     modalBtCancelDevice: 'bt-modal-cancel-update-device',

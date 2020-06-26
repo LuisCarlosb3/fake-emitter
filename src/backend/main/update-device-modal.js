@@ -1,25 +1,36 @@
 export default class UpdateDeviceModal {
-  constructor (modal, tag, state, attributesList, btUpdate, btCancel, btDelete) {
+  constructor (modal, tag, attributesList, btUpdate, btCancel, btDelete) {
     this.modal = modal
     this.tag = tag
-    this.state = state
     this.attributesList = attributesList
     this.btDelete = btDelete
+    this.btUpdate = btUpdate
   }
 
-  openModal (device, deleteAction) {
+  openModal (device, deleteAction, updateAction) {
     this.modal.display = 'block'
-    this.tag.textContent = device.tag
-    this.state.textContent = device.state
-    this.btDelete.addEventListener('click', () => {
+    this.tag.value = device.tag
+    this.btDelete.onclick = () => {
       this.closeModal()
       deleteAction()
-    })
+    }
+    this.btUpdate.onclick = () => {
+      const newTag = this.tag.value
+      console.log(newTag)
+      if (newTag.trim().length > 0) {
+        const updated = updateAction(newTag)
+        console.log(updated)
+        if (updated) {
+          this.closeModal()
+        }
+      } else {
+        console.log('preencha corretamente')
+      }
+    }
   }
 
   closeModal () {
-    this.tag.textContent = ''
-    this.state.textContent = ''
+    this.tag.value = ''
     this.modal.display = 'none'
   }
 }

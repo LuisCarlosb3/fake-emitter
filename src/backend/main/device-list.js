@@ -31,6 +31,18 @@ export default class DeviceList {
     }
   }
 
+  changeData (device, newTag) {
+    device.tag = newTag
+    const response = this.deviceController.updateAttribute(device)
+    if (response) {
+      document.getElementById(`tag-${device.id}`).innerText = `TAG: ${newTag}`
+      return true
+    } else {
+      console.log('TAG JA CADASTRADA')
+      return false
+    }
+  }
+
   changeStatus (id, stateButton) {
     const newState = this.deviceController.updateState(id)
     stateButton.textContent = newState ? 'ON' : 'OFF'
@@ -46,13 +58,18 @@ export default class DeviceList {
     const newTagDiv = document.importNode(tagDiv, true)
     const newStatusButton = document.importNode(statusButton, true)
 
-    newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
-    newTagDiv.addEventListener('click', () => this.modal.openModal(device, () => this.removeDevice(device.id)))
-
     const buttonStateId = `change-state-${device.id}`
     newStatusButton.textContent = 'OFF'
     newStatusButton.setAttribute('id', buttonStateId)
     newStatusButton.addEventListener('click', () => this.changeStatus(device.id, newStatusButton))
+
+    newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
+    newTagDiv.setAttribute('id', `tag-${device.id}`)
+    newTagDiv.addEventListener('click', () => this.modal.openModal(
+      device,
+      () => this.removeDevice(device.id),
+      (newTag) => this.changeData(device, newTag)
+    ))
 
     newDeviceDiv.setAttribute('id', device.id)
 
