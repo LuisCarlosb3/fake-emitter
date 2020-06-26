@@ -36,20 +36,28 @@ export default class DeviceList {
   }
 
   createDeviceListItem (device) {
-    const div = document.createElement('div')
-    div.setAttribute('id', device.id)
-    const divName = document.createElement('div')
+    const template = document.getElementsByTagName('template')[0]
+    const templateElements = template.content.querySelectorAll('div')
+    const deviceDiv = templateElements[0]
+    const tagDiv = templateElements[1]
+    const statusButton = templateElements[2]
+    const newDeviceDiv = document.importNode(deviceDiv, true)
+    const newTagDiv = document.importNode(tagDiv, true)
+    const newStatusButton = document.importNode(statusButton, true)
 
-    const stateButton = document.createElement('button')
+    newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
+    newTagDiv.addEventListener('click', () => this.removeDevice(device.id))
+
     const buttonStateId = `change-state-${device.id}`
-    stateButton.textContent = 'OFF'
-    stateButton.setAttribute('id', buttonStateId)
+    newStatusButton.textContent = 'OFF'
+    newStatusButton.setAttribute('id', buttonStateId)
+    newStatusButton.addEventListener('click', () => this.changeStatus(device.id, newStatusButton))
 
-    divName.appendChild(document.createTextNode(`${device.tag}:${device.id}`))
-    divName.addEventListener('click', () => this.removeDevice(device.id))
-    div.appendChild(divName)
-    div.appendChild(stateButton)
-    stateButton.addEventListener('click', () => this.changeStatus(device.id, stateButton))
-    return div
+    newDeviceDiv.setAttribute('id', device.id)
+
+    newDeviceDiv.appendChild(newTagDiv)
+    newDeviceDiv.appendChild(newStatusButton)
+
+    return newDeviceDiv
   }
 }
