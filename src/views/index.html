@@ -13,6 +13,13 @@
       <div></div>
     </div>
   </template>
+  <!--device list template-->
+  <template>
+    <div>
+      <input required>
+      <input required>
+    </div>
+  </template>
   <button id="bt-open-add-modal">NEW DEVICE</button>
   <div id="devices-list">
 
@@ -29,7 +36,9 @@
       <div>
         TAG: <input id="modal-device-tag">
       </div>
-      <div id="modal-device-attributes"></div>
+      <div id="modal-add-attribute">ADD</div>
+      <div id="modal-device-attributes">
+      </div>
       <button id="bt-modal-confirm-update-device" type="submit">SAVE</button>
     </form>
     <button id="bt-modal-cancel-update-device">CANCEL</button>
