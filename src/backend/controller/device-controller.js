@@ -33,6 +33,7 @@ export default class DeviceController {
       for (const key in this.devices) {
         if (this.devices[key].id === deviceUpdated.id) {
           this.devices[key] = deviceUpdated
+          this.save()
         }
       }
       return true
@@ -48,6 +49,7 @@ export default class DeviceController {
         newState = dev.state
       }
     }
+    this.save()
     return newState
   }
 
