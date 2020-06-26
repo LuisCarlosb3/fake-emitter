@@ -48,6 +48,7 @@ export default class DeviceController {
       }
       isDeleted = true
     })
+    this.save()
     return isDeleted
   }
 

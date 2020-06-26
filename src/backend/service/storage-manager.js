@@ -33,7 +33,6 @@ export default class StorageManager {
 
   setData (attributeName, dataToStore) {
     this.data[attributeName] = dataToStore
-    console.log(this.data)
   }
 
   getPath () {

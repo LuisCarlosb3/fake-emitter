@@ -1,8 +1,9 @@
 
 export default class DeviceList {
-  constructor (deviceList, deviceController) {
+  constructor (deviceList, deviceController, modal) {
     this.element = deviceList
     this.deviceController = deviceController
+    this.modal = modal
   }
 
   async initialize () {
@@ -46,7 +47,7 @@ export default class DeviceList {
     const newStatusButton = document.importNode(statusButton, true)
 
     newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
-    newTagDiv.addEventListener('click', () => this.removeDevice(device.id))
+    newTagDiv.addEventListener('click', () => this.modal.openModal(device, () => this.removeDevice(device.id)))
 
     const buttonStateId = `change-state-${device.id}`
     newStatusButton.textContent = 'OFF'
