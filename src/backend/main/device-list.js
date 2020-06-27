@@ -1,8 +1,9 @@
 
 export default class DeviceList {
-  constructor (deviceList, deviceController, modal) {
+  constructor (deviceList, deviceController, addModal, modal) {
     this.element = deviceList
     this.deviceController = deviceController
+    this.addModal = addModal
     this.modal = modal
   }
 
@@ -19,6 +20,7 @@ export default class DeviceList {
     if (device) {
       const deviceItem = this.createDeviceListItem(device)
       this.element.appendChild(deviceItem)
+      this.addModal.closeModal()
       return true
     }
     return false

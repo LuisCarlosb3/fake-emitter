@@ -30,7 +30,7 @@ class MainApplication {
       modalBtDeleteDevice, modalBtAddAttribute
     )
     const deviceController = new DeviceController(this.storageManager)
-    const deviceList = new DeviceList(deviceListEl, deviceController, updateModalEl)
+    const deviceList = new DeviceList(deviceListEl, deviceController, modalElement, updateModalEl)
     await deviceList.initialize()
     buttonOpenModal(ids.btOpenAddModal, modalElement)
     buttonCloseModal(ids.btCancelAddDevice, modalElement)

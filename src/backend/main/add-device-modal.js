@@ -4,10 +4,12 @@ export default class AddDeviceModal {
   }
 
   openModal () {
-    this.modal.display = 'block'
+    this.modal.style.display = 'block'
   }
 
   closeModal () {
-    this.modal.display = 'none'
+    const input = this.modal.querySelectorAll('input')[0]
+    input.value = ''
+    this.modal.style.display = 'none'
   }
 }
