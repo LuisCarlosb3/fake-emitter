@@ -48,7 +48,7 @@ export default class DeviceList {
 
   changeStatus (id, stateButton) {
     const newState = this.deviceController.updateState(id)
-    stateButton.textContent = newState ? 'ON' : 'OFF'
+    stateButton.checked = newState
   }
 
   createDeviceListItem (device) {
@@ -56,15 +56,26 @@ export default class DeviceList {
     const templateElements = template.content.querySelectorAll('div')
     const deviceDiv = templateElements[0]
     const tagDiv = templateElements[1]
-    const statusButton = templateElements[2]
+    const statusDiv = templateElements[2]
     const newDeviceDiv = deviceDiv.cloneNode(false)
     const newTagDiv = tagDiv.cloneNode(false)
-    const newStatusButton = statusButton.cloneNode(false)
+
+    const statusDivLabel = statusDiv.querySelector('label')
+    const statusDivInput = statusDiv.querySelector('input')
+    const statusDivSpan = statusDiv.querySelector('span')
+    const newStatusDiv = statusDiv.cloneNode(false)
+    const newStatusDivInput = statusDivInput.cloneNode(false)
+    const newStatusDivLabel = statusDivLabel.cloneNode(false)
+    const newStatusDivSpan = statusDivSpan.cloneNode(false)
 
     const buttonStateId = `change-state-${device.id}`
-    newStatusButton.textContent = device.state ? 'ON' : 'OFF'
-    newStatusButton.id = buttonStateId
-    newStatusButton.addEventListener('click', () => this.changeStatus(device.id, newStatusButton))
+    newStatusDivInput.checked = device.state
+    newStatusDivInput.id = buttonStateId
+    newStatusDivInput.addEventListener('click', () => this.changeStatus(device.id, newStatusDivInput))
+
+    newStatusDivLabel.appendChild(newStatusDivInput)
+    newStatusDivLabel.appendChild(newStatusDivSpan)
+    newStatusDiv.appendChild(newStatusDivLabel)
 
     newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
     newTagDiv.setAttribute('id', `tag-${device.id}`)
@@ -77,7 +88,7 @@ export default class DeviceList {
     newDeviceDiv.setAttribute('id', device.id)
 
     newDeviceDiv.appendChild(newTagDiv)
-    newDeviceDiv.appendChild(newStatusButton)
+    newDeviceDiv.appendChild(newStatusDivLabel)
 
     return newDeviceDiv
   }
