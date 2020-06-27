@@ -1,3 +1,4 @@
+const Swal = require('sweetalert2')
 export function buttonOpenModal (buttonId, modalEl) {
   const btOpenModal = document.getElementById(buttonId)
   btOpenModal.addEventListener('click', () => { modalEl.openModal() })
@@ -13,10 +14,17 @@ export function buttonAddDevice (buttonId, deviceList, inputElement) {
     if (newTag.trim().length > 0) {
       const response = await deviceList.addDevice(newTag)
       if (!response) {
-        console.log('name already exists')
+        simpleAlert('Name already exists')
       }
     } else {
-      console.log('inisira corretamente')
+      simpleAlert('Please, insert device tag')
     }
+  })
+}
+export function simpleAlert (message) {
+  Swal.fire({
+    text: message,
+    icon: 'alert',
+    confirmButtonText: 'OK'
   })
 }
