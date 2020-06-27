@@ -20,13 +20,14 @@ class MainApplication {
     const modalBtUpdateDevice = document.getElementById(ids.modalBtUpdateDevice)
     const modalBtCancelDevice = document.getElementById(ids.modalBtCancelDevice)
     const modalBtDeleteDevice = document.getElementById(ids.modalBtDeleteDevice)
+    const modalBtAddAttribute = document.getElementById(ids.modalBtAddAttribute)
 
     const modalElement = new AddDeviceModal(modalAddDevice)
 
     const updateModalEl = new UpdateDeviceModal(
       modalUpdateDevice, modalTagDevice, modalAttributesListDevice,
       modalBtUpdateDevice, modalBtCancelDevice,
-      modalBtDeleteDevice
+      modalBtDeleteDevice, modalBtAddAttribute
     )
     const deviceController = new DeviceController(this.storageManager)
     const deviceList = new DeviceList(deviceListEl, deviceController, updateModalEl)
@@ -64,7 +65,8 @@ window.onload = async function () {
     modalAttributesListDevice: 'modal-device-attributes',
     modalBtUpdateDevice: 'bt-modal-confirm-update-device',
     modalBtCancelDevice: 'bt-modal-cancel-update-device',
-    modalBtDeleteDevice: 'bt-modal-delete-device'
+    modalBtDeleteDevice: 'bt-modal-delete-device',
+    modalBtAddAttribute: 'modal-add-attribute'
   })
 }
 require('electron').remote.getCurrentWindow().on('close', async (e) => {

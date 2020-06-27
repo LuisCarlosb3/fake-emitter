@@ -54,13 +54,13 @@ export default class DeviceList {
     const deviceDiv = templateElements[0]
     const tagDiv = templateElements[1]
     const statusButton = templateElements[2]
-    const newDeviceDiv = document.importNode(deviceDiv, true)
-    const newTagDiv = document.importNode(tagDiv, true)
-    const newStatusButton = document.importNode(statusButton, true)
+    const newDeviceDiv = deviceDiv.cloneNode(false)
+    const newTagDiv = tagDiv.cloneNode(false)
+    const newStatusButton = statusButton.cloneNode(false)
 
     const buttonStateId = `change-state-${device.id}`
     newStatusButton.textContent = device.state ? 'ON' : 'OFF'
-    newStatusButton.setAttribute('id', buttonStateId)
+    newStatusButton.id = buttonStateId
     newStatusButton.addEventListener('click', () => this.changeStatus(device.id, newStatusButton))
 
     newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
