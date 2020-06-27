@@ -77,7 +77,7 @@ export default class DeviceList {
     newStatusDivLabel.appendChild(newStatusDivSpan)
     newStatusDiv.appendChild(newStatusDivLabel)
 
-    newTagDiv.appendChild(document.createTextNode(`TAG: ${device.tag}`))
+    newTagDiv.appendChild(document.createTextNode(`${device.tag}`))
     newTagDiv.setAttribute('id', `tag-${device.id}`)
     newTagDiv.addEventListener('click', () => this.modal.openModal(
       device,

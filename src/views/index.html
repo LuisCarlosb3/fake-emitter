@@ -4,32 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="../styles/main.css" type="text/css"></link>
+  <link rel="stylesheet" href="../styles/modal.css" type="text/css"></link>
+  <link rel="stylesheet" href="../styles/modal-update.css" type="text/css"></link>
+  <link rel="stylesheet" href="../styles/switch.css" type="text/css"></link>
 </head>
 <body>
   <!--device list template-->
   <template>
-    <div>
-      <div></div>
-      <div></div>
+    <div  class="device-item">
+      <div class="device-item-name"></div>
+      <div class="device-item-status">
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
   </template>
   <!--device list template-->
-  <template>
+  <template  class="modal-update">
     <div>
       <input required>
       <input required>
       <div>  </div>
     </div>
   </template>
-  <button id="bt-open-add-modal">NEW DEVICE</button>
-  <div id="devices-list">
-
+  <div id="application-title">
+    FakeEmitter
   </div>
-
-  <div id="modal-add-device">
-    <input type="text" id="new-device-tag">
-    <button id="bt-confirm-add-device">SAVE DEVICE</button>
-    <button id="bt-cancel-add-device">CANCEL</button>
+  <div class="bt-open-modal-container">
+    <div id="bt-open-add-modal" class="bt-open-modal">
+      <img class="add-icon" src="../img/add-white.svg">
+    </div>
+  </div>
+  <div id="devices-list">
+  </div>
+  <div id="modal-add-device" class="modal">
+    <div class="modal-content">
+      <div class="modal-title">New Device</div>
+      <form>
+        <div class="input-container">
+          <label class="input-label">TAG: </label>
+          <input type="text" id="new-device-tag" class="model-input">
+        </div>
+      </form>
+      <div class="buttons-form-container">
+        <button class="bt-add-device" id="bt-confirm-add-device">
+          <img class="button-icon" src="../img/save-white.svg">
+        </button>
+        <button class="bt-cancel-device" id="bt-cancel-add-device">
+          <img class="button-icon" src="../img/clear-white.svg">
+        </button>
+      </div>
+    </div>
   </div>
   <br>
   <div id="modal-device">
