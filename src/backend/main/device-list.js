@@ -31,8 +31,9 @@ export default class DeviceList {
     }
   }
 
-  changeData (device, newTag) {
+  changeData (device, newTag, attributes) {
     device.tag = newTag
+    device.attributes = attributes
     const response = this.deviceController.updateAttribute(device)
     if (response) {
       document.getElementById(`tag-${device.id}`).innerText = `TAG: ${newTag}`
@@ -68,7 +69,7 @@ export default class DeviceList {
     newTagDiv.addEventListener('click', () => this.modal.openModal(
       device,
       () => this.removeDevice(device.id),
-      (newTag) => this.changeData(device, newTag)
+      (newTag, attributes) => this.changeData(device, newTag, attributes)
     ))
 
     newDeviceDiv.setAttribute('id', device.id)
