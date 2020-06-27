@@ -3,7 +3,7 @@ let win
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 500,
+    width: 450,
     height: 730,
     title: 'FakeEmitter',
     titleBarStyle: 'hidden',
