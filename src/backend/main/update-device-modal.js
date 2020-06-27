@@ -9,6 +9,7 @@ export default class UpdateDeviceModal {
   }
 
   openModal (device, deleteAction, updateAction) {
+    this.closeModal()
     this.modal.display = 'block'
     this.tag.value = device.tag
     this.btDelete.onclick = (e) => {
@@ -31,9 +32,10 @@ export default class UpdateDeviceModal {
       }
     }
     this.btAddAttribute.onclick = (e) => {
-      const removeEl = (el) => this.attributesList.removeChild(el)
-      const attrEl = this.addAttributeAction(removeEl)
-      this.attributesList.appendChild(attrEl)
+      this.addAttributeFactory()
+    }
+    for (const attr of device.attributes) {
+      this.addAttributeFactory(attr)
     }
   }
 
@@ -45,7 +47,13 @@ export default class UpdateDeviceModal {
     }
   }
 
-  addAttributeAction (removeAttr) {
+  addAttributeFactory (attr) {
+    const removeEl = (el) => this.attributesList.removeChild(el)
+    const attrEl = this.addAttributeAction(removeEl, attr)
+    this.attributesList.appendChild(attrEl)
+  }
+
+  addAttributeAction (removeAttr, attr = { name: '', value: '' }) {
     const id = Date.now()
     const template = document.getElementsByTagName('template')[1]
     const templateDiv = template.content.querySelectorAll('div')[0]
@@ -58,7 +66,9 @@ export default class UpdateDeviceModal {
     const newTemplateRemoveElDiv = templateRemoveElDiv.cloneNode(false)
     const newattrValue = attrValue.cloneNode(false)
     newattrName.setAttribute('id', `${id}-name`)
+    newattrName.setAttribute('value', attr.name)
     newattrValue.setAttribute('id', `${Date.now()}-value`)
+    newattrValue.setAttribute('value', attr.value)
     newTemplateRemoveElDiv.setAttribute('id', `${id}-remove`)
     newTemplateRemoveElDiv.innerText = 'DEL'
 
