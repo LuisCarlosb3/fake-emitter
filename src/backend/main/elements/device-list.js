@@ -1,4 +1,4 @@
-import { simpleAlert } from '../events/events-factory.js'
+import { simpleAlert } from '../../events/events-factory.js'
 export default class DeviceList {
   constructor (deviceList, deviceController, addModal, modal) {
     this.element = deviceList

@@ -1,4 +1,4 @@
-import { simpleAlert } from '../events/events-factory.js'
+import { simpleAlert } from '../../events/events-factory.js'
 export default class UpdateDeviceModal {
   constructor (modal, tag, attributesList, btUpdate, btCancel, btDelete, btAddAttribute) {
     this.modal = modal

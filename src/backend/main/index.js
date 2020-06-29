@@ -1,12 +1,14 @@
-import DeviceList from './device-list.js'
+import DeviceList from './elements/device-list.js'
 import DeviceController from '../controller/device-controller.js'
 import StorageManager from '../service/storage-manager.js'
-import AddDeviceModal from './add-device-modal.js'
-import UpdateDeviceModal from './update-device-modal.js'
+import AddDeviceModal from './elements/add-device-modal.js'
+import UpdateDeviceModal from './elements/update-device-modal.js'
+import MqttConnection from '../service/mqtt-connection.js'
 import { buttonOpenModal, buttonCloseModal, buttonAddDevice } from '../events/events-factory.js'
 class MainApplication {
-  constructor (storageManager) {
+  constructor (storageManager, mqttConnection) {
     this.storageManager = storageManager
+    this.mqttConnection = mqttConnection
   }
 
   async config (ids) {
@@ -50,9 +52,10 @@ class MainApplication {
 }
 
 const storageManager = new StorageManager()
+const mqttConnection = new MqttConnection()
 window.onload = async function () {
   await storageManager.load()
-  const application = new MainApplication(storageManager)
+  const application = new MainApplication(storageManager, mqttConnection)
   application.config({
     btOpenAddModal: 'bt-open-add-modal',
     btConfirmAddDevice: 'bt-confirm-add-device',
