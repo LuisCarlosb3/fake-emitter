@@ -14,7 +14,7 @@ export function buttonAddDevice (buttonId, deviceList, inputElement) {
     if (newTag.trim().length > 0) {
       const response = await deviceList.addDevice(newTag)
       if (!response) {
-        simpleAlert('Name already exists')
+        simpleAlert('Tag already exists')
       }
     } else {
       simpleAlert('Please, insert device tag')
@@ -24,7 +24,7 @@ export function buttonAddDevice (buttonId, deviceList, inputElement) {
 export function simpleAlert (message) {
   Swal.fire({
     text: message,
-    icon: 'alert',
+    icon: 'warning',
     confirmButtonText: 'OK'
   })
 }

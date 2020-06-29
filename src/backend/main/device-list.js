@@ -1,4 +1,4 @@
-
+import { simpleAlert } from '../events/events-factory.js'
 export default class DeviceList {
   constructor (deviceList, deviceController, addModal, modal) {
     this.element = deviceList
@@ -38,10 +38,10 @@ export default class DeviceList {
     device.attributes = attributes
     const response = this.deviceController.updateAttribute(device)
     if (response) {
-      document.getElementById(`tag-${device.id}`).innerText = `TAG: ${newTag}`
+      document.getElementById(`tag-${device.id}`).innerText = `${newTag}`
       return true
     } else {
-      console.log('TAG JA CADASTRADA')
+      simpleAlert('TAG JA CADASTRADA')
       return false
     }
   }
