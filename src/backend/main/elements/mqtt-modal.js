@@ -1,3 +1,4 @@
+import { simpleAlert } from '../../events/events-factory.js'
 export default class MqttModal {
   constructor (modal, inputs, btSave, btCancel, mqttController) {
     this.modal = modal
@@ -15,14 +16,16 @@ export default class MqttModal {
     this.inputs.username.value = config.username || ''
     this.inputs.password.value = config.password || ''
     this.inputs.url.value = config.url || ''
-    this.btSave.onclick = () => {
+    this.btSave.onclick = async () => {
       const inputs = {}
       for (const input in this.inputs) {
         inputs[input] = this.inputs[input].value
       }
-      const response = this.mqttController.saveConfig(inputs)
+      const response = await this.mqttController.saveConfig(inputs)
       if (response) {
         this.closeModal()
+      } else {
+        simpleAlert('Insert correct values')
       }
     }
   }

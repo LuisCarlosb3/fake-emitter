@@ -41,7 +41,7 @@ export default class DeviceList {
       document.getElementById(`tag-${device.id}`).innerText = `${newTag}`
       return true
     } else {
-      simpleAlert('TAG JA CADASTRADA')
+      simpleAlert('Tag Already registered')
       return false
     }
   }
