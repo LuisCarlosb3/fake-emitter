@@ -23,11 +23,15 @@
     </div>
   </template>
   <!--device list template-->
-  <template  class="modal-update">
-    <div>
-      <input required>
-      <input required>
-      <div>  </div>
+  <template>
+    <div class="attribute-item">
+      <div class="attribute-item-input">
+        <input class="attribute-item-name" placeholder="name" required>
+        <input class="attribute-item-value" placeholder="value" required>
+      </div>
+      <div class="remove-attribute-action">
+        <img class="remove-attribute" src="../img/clear-white.svg">  
+      </div>
     </div>
   </template>
   <div id="application-title">
@@ -43,12 +47,12 @@
   <div id="modal-add-device" class="modal">
     <div class="modal-content">
       <div class="modal-title">New Device</div>
-      <form>
+
         <div class="input-container">
           <label class="input-label">TAG: </label>
           <input type="text" id="new-device-tag" class="model-input">
         </div>
-      </form>
+
       <div class="buttons-form-container">
         <button class="bt-add-device" id="bt-confirm-add-device">
           <img class="button-icon" src="../img/save-white.svg">
@@ -59,20 +63,36 @@
       </div>
     </div>
   </div>
-  <br>
-  <div id="modal-device">
-    <form>
-      <div>
-        TAG: <input id="modal-device-tag">
+  <div id="modal-device" class="modal-update">
+    <div class="modal-dialog">
+      <div  class="modal-content-update"> 
+        <div class="modal-title">Edit Device</div>
+        <div class="input-container">
+          <label class="input-label">TAG </label>
+          <input class="model-input" id="modal-device-tag">
+        </div>
+        <div class="attributes-title-container">
+          <label class="input-label">Attributes </label>
+          <div class="bt-modal-add-attribute" id="modal-add-attribute">
+            <img class="add-attribute" src="../img/add-white.svg">
+          </div>
+        </div>
+        <div id="modal-device-attributes">
+        </div>
+        <div class="buttons-form-update-container">
+          <button id="bt-modal-confirm-update-device" type="submit">
+            <img class="modal-button-icon" src="../img/save-white.svg">
+          </button>
+          <button id="bt-modal-cancel-update-device">
+            <img class="modal-button-icon" src="../img/clear-white.svg">
+          </button>
+          <button id="bt-modal-delete-device">
+            <img class="modal-button-icon" src="../img/delete-white.svg">
+          </button>
+        </div>
       </div>
-      <div id="modal-add-attribute">ADD</div>
-      <div id="modal-device-attributes">
-      </div>
-      <button id="bt-modal-confirm-update-device" type="submit">SAVE</button>
-    </form>
-    <button id="bt-modal-cancel-update-device">CANCEL</button>
-    <button id="bt-modal-delete-device">DELETE</button>
+    </div>
   </div>
-</body>
+  </body>
 <script type="module" src="../backend/main/index.js"></script>
 </html>

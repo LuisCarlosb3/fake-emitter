@@ -11,32 +11,22 @@
   background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
   font-size: 16pt;
 }
+.modal-dialog{
+  overflow-y: initial !important;
+}
 .modal-content-update {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 70%;
-  height: 25%;
+  max-width: 70%;
+  height: 350px;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 50px;
-}
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  margin: 0px 15px;
-}
-.modal-title{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  font-size: 20pt;
-  margin: 20px 0px 5px 0px;
-  font-weight: bold;
+  overflow-y: auto;
 }
 .input-container{
   display: flex;
@@ -61,28 +51,93 @@
   font-size: 14pt;
   border-color:#81FCF8 #81FCF8;
 }
-.buttons-form-container{
+.attributes-title-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 0px 0px 5px;
+  padding: 0px 0px 0px 20px;
+
+}
+.bt-modal-add-attribute{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+.add-attribute {
+  width: 15px;
+  height: auto;
+  outline: none;
+  border-radius: 25px;
+  margin: 0 10px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.attribute-item{
+  display: flex;
+  flex-direction: column;
+}
+.attribute-item-input{
+  display: flex;
+  flex-direction: row;
+  max-width: 90%;
+  flex-wrap: nowrap;
+  margin: 0px 0px 0px 5px;
+  padding: 0px 0px 0px 20px;
+}
+.attribute-item-name,
+.attribute-item-value{
+  width: 40%;
+  -webkit-box-sizing: border-box;
+  align-self: flex-end;
+  border-radius: 10px;
+  outline: none;
+  padding: 0px 10px;
+  font-size: 14pt;
+  border-color:#81FCF8 #81FCF8;
+}
+.attribute-item-name{
+  flex-grow: 4;
+}
+.remove-attribute-action{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  margin-top: 10px;
+}
+.remove-attribute {
+  width: 15px;
+  height: auto;
+  outline: none;
+  border-radius: 25px;
+  margin: 0 10px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.buttons-form-update-container{
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-end;
   justify-content: flex-end;
   height: 100%;
 }
-.bt-add-device,
-.bt-cancel-device{
+.buttons-form-update-container button{
+  margin: 0px 5px;
   width: auto;
   border-radius: 50px;
   outline: none;
-  margin: 0 10px;
   background: #000000;
 }
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-.button-icon{
+.modal-button-icon{
   width: 25px;
   height: auto;
 }
