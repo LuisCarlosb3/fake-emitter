@@ -10,15 +10,17 @@ export default class MqttController {
     return this.config
   }
 
-  saveConfig ({ clientId, port, username, password, url }) {
+  async saveConfig ({ clientId, port, username, password, url }) {
     if (clientId.trim().length > 0 &&
         port.trim().length > 0 &&
         username.trim().length > 0 &&
         password.trim().length > 0 &&
         url.trim().length > 0
     ) {
+      await this.disconnect()
       this.config = { clientId, port, username, password, url }
       this.save()
+      await this.connect()
       return true
     } else {
       return false
@@ -26,11 +28,22 @@ export default class MqttController {
   }
 
   connect () {
-
+    return new Promise(resolve => resolve('conectado'))
   }
 
   disconnect () {
+    return new Promise(resolve => resolve('desconectado'))
+  }
 
+  sendData () {
+    this.timeInterval = setInterval(() => {
+      console.log('enviando')
+      // this.mqtt.sendData()
+    }, 2000)
+  }
+
+  stopData () {
+    clearInterval(this.timeInterval)
   }
 
   save () {

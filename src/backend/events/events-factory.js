@@ -21,10 +21,38 @@ export function buttonAddDevice (buttonId, deviceList, inputElement) {
     }
   })
 }
-export function simpleAlert (message) {
+export function simpleAlert (message, type = 'warning') {
   Swal.fire({
     text: message,
-    icon: 'warning',
+    icon: type,
     confirmButtonText: 'OK'
+  })
+}
+export function buttonActionMqtt (buttonId, mqttController) {
+  const btStartMqtt = document.getElementById(buttonId)
+  const imageAction = btStartMqtt.querySelectorAll('img')[0]
+  let running = false
+  btStartMqtt.addEventListener('click', async () => {
+    try {
+      if (!running) {
+        await mqttController.connect()
+        mqttController.sendData()
+        simpleAlert('MQTT Connected', 'info')
+        imageAction.setAttribute('src', '../img/stop-white.svg')
+        running = true
+      } else {
+        mqttController.stopData()
+        await mqttController.disconnect()
+        simpleAlert('MQTT Disconnected', 'info')
+        running = false
+        imageAction.setAttribute('src', '../img/play-white.svg')
+      }
+    } catch (err) {
+      simpleAlert('An error has occured')
+      mqttController.stopData()
+      imageAction.setAttribute('src', '../img/play-white.svg')
+      console.log(err)
+      running = false
+    }
   })
 }

@@ -6,7 +6,7 @@ import AddDeviceModal from './elements/add-device-modal.js'
 import UpdateDeviceModal from './elements/update-device-modal.js'
 import MqttModal from './elements/mqtt-modal.js'
 import MqttConnection from '../service/mqtt-connection.js'
-import { buttonOpenModal, buttonCloseModal, buttonAddDevice } from '../events/events-factory.js'
+import { buttonOpenModal, buttonCloseModal, buttonAddDevice, buttonActionMqtt } from '../events/events-factory.js'
 class MainApplication {
   constructor (storageManager, mqttConnection) {
     this.storageManager = storageManager
@@ -25,9 +25,7 @@ class MainApplication {
     const modalBtCancelDevice = document.getElementById(ids.modalBtCancelDevice)
     const modalBtDeleteDevice = document.getElementById(ids.modalBtDeleteDevice)
     const modalBtAddAttribute = document.getElementById(ids.modalBtAddAttribute)
-    const modalBtConfigMqtt = document.getElementById(ids.modalBtConfigMqtt)
     const modalMqttConfig = document.getElementById(ids.modalMqttConfig)
-
     const mqttInputs = {}
     mqttInputs.clientId = document.getElementById(ids.inputMqttClient)
     mqttInputs.username = document.getElementById(ids.inputMqttUser)
@@ -58,6 +56,7 @@ class MainApplication {
     buttonCloseModal(ids.btCancelAddDevice, modalElement)
     buttonCloseModal(ids.modalMqttCancel, mqttModal)
     buttonAddDevice(ids.btConfirmAddDevice, deviceList, inputNewDeviceTag)
+    buttonActionMqtt(ids.btStartMqtt, mqttController)
 
     buttonCloseModal(ids.modalBtCancelDevice, updateModalEl)
 
@@ -102,7 +101,8 @@ window.onload = async function () {
     inputMqttPassword: 'input-mqtt-password',
     inputMqttUrl: 'input-mqtt-url',
     modalMqttSave: 'bt-confirm-mqtt-config',
-    modalMqttCancel: 'bt-cancel-mqtt-config'
+    modalMqttCancel: 'bt-cancel-mqtt-config',
+    btStartMqtt: 'bt-start-mqtt'
   })
 }
 require('electron').remote.getCurrentWindow().on('close', async (e) => {
