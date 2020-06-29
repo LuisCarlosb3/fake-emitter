@@ -16,6 +16,7 @@ export default class MqttModal {
     this.inputs.username.value = config.username || ''
     this.inputs.password.value = config.password || ''
     this.inputs.url.value = config.url || ''
+    this.inputs.interval.value = config.interval || ''
     this.btSave.onclick = async () => {
       const inputs = {}
       for (const input in this.inputs) {

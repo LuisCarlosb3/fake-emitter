@@ -32,6 +32,7 @@ class MainApplication {
     mqttInputs.port = document.getElementById(ids.inputMqttPort)
     mqttInputs.password = document.getElementById(ids.inputMqttPassword)
     mqttInputs.url = document.getElementById(ids.inputMqttUrl)
+    mqttInputs.interval = document.getElementById(ids.inputMqttInterval)
     const modalMqttSave = document.getElementById(ids.modalMqttSave)
     const modalMqttCancel = document.getElementById(ids.modalMqttCancel)
 
@@ -100,6 +101,7 @@ window.onload = async function () {
     inputMqttUser: 'input-mqtt-user',
     inputMqttPassword: 'input-mqtt-password',
     inputMqttUrl: 'input-mqtt-url',
+    inputMqttInterval: 'input-mqtt-interval',
     modalMqttSave: 'bt-confirm-mqtt-config',
     modalMqttCancel: 'bt-cancel-mqtt-config',
     btStartMqtt: 'bt-start-mqtt'
