@@ -7,11 +7,10 @@ const writeFileAsync = promisify(fs.writeFile)
 
 export default class StorageManager {
   async load () {
-    const filePath = this.getPath()
+    const filePath = this.getPath('userData')
     return readFileAsync(filePath, 'utf-8').then(data => {
       this.data = JSON.parse(data)
-    }).catch((err) => {
-      console.log(err.message)
+    }).catch(() => {
       this.data = { devices: [], configuration: {} }
       fs.writeFileSync(filePath, JSON.stringify(this.data))
     })
@@ -19,11 +18,11 @@ export default class StorageManager {
 
   async save () {
     try {
-      const filePath = this.getPath()
+      const filePath = this.getPath('userData')
       const storedData = JSON.stringify(this.data)
       await writeFileAsync(filePath, storedData)
     } catch (error) {
-      console.log(error)
+      this.errorStore(error)
     }
   }
 
@@ -35,9 +34,14 @@ export default class StorageManager {
     this.data[attributeName] = dataToStore
   }
 
-  getPath () {
-    const userDataPath = (electron.app || electron.remote.app).getPath('userData')
-    const filePath = path.join(userDataPath, 'userData.json')
+  async errorStore (err) {
+    const filePath = this.getPath('errors')
+    await writeFileAsync(filePath, err)
+  }
+
+  getPath (file) {
+    const userDataPath = (electron.app || electron.remote.app).getPath(file)
+    const filePath = path.join(userDataPath, `${file}.json`)
     return filePath
   }
 }
