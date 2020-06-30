@@ -32,6 +32,7 @@ class MainApplication {
     mqttInputs.port = document.getElementById(ids.inputMqttPort)
     mqttInputs.password = document.getElementById(ids.inputMqttPassword)
     mqttInputs.url = document.getElementById(ids.inputMqttUrl)
+    mqttInputs.topic = document.getElementById(ids.inputMqttTopic)
     mqttInputs.interval = document.getElementById(ids.inputMqttInterval)
     const modalMqttSave = document.getElementById(ids.modalMqttSave)
     const modalMqttCancel = document.getElementById(ids.modalMqttCancel)
@@ -101,6 +102,7 @@ try {
       inputMqttUser: 'input-mqtt-user',
       inputMqttPassword: 'input-mqtt-password',
       inputMqttUrl: 'input-mqtt-url',
+      inputMqttTopic: 'input-mqtt-topic',
       inputMqttInterval: 'input-mqtt-interval',
       modalMqttSave: 'bt-confirm-mqtt-config',
       modalMqttCancel: 'bt-cancel-mqtt-config',
