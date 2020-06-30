@@ -74,39 +74,42 @@ class MainApplication {
     }
   }
 }
-
-const storageManager = new StorageManager()
-const mqttConnection = new MqttConnection()
-window.onload = async function () {
-  await storageManager.load()
-  const application = new MainApplication(storageManager, mqttConnection)
-  application.config({
-    btOpenAddModal: 'bt-open-add-modal',
-    btConfirmAddDevice: 'bt-confirm-add-device',
-    btCancelAddDevice: 'bt-cancel-add-device',
-    devicesList: 'devices-list',
-    modalAddDevice: 'modal-add-device',
-    newTagDeviceInput: 'new-device-tag',
-    modalUpdateDevice: 'modal-device',
-    modalTagDevice: 'modal-device-tag',
-    modalAttributesListDevice: 'modal-device-attributes',
-    modalBtUpdateDevice: 'bt-modal-confirm-update-device',
-    modalBtCancelDevice: 'bt-modal-cancel-update-device',
-    modalBtDeleteDevice: 'bt-modal-delete-device',
-    modalBtAddAttribute: 'modal-add-attribute',
-    modalBtConfigMqtt: 'bt-config-mqtt',
-    modalMqttConfig: 'modal-config-mqtt',
-    inputMqttClient: 'input-mqtt-client',
-    inputMqttPort: 'input-mqtt-port',
-    inputMqttUser: 'input-mqtt-user',
-    inputMqttPassword: 'input-mqtt-password',
-    inputMqttUrl: 'input-mqtt-url',
-    inputMqttInterval: 'input-mqtt-interval',
-    modalMqttSave: 'bt-confirm-mqtt-config',
-    modalMqttCancel: 'bt-cancel-mqtt-config',
-    btStartMqtt: 'bt-start-mqtt'
+try {
+  const storageManager = new StorageManager()
+  const mqttConnection = new MqttConnection()
+  window.onload = async function () {
+    await storageManager.load()
+    const application = new MainApplication(storageManager, mqttConnection)
+    application.config({
+      btOpenAddModal: 'bt-open-add-modal',
+      btConfirmAddDevice: 'bt-confirm-add-device',
+      btCancelAddDevice: 'bt-cancel-add-device',
+      devicesList: 'devices-list',
+      modalAddDevice: 'modal-add-device',
+      newTagDeviceInput: 'new-device-tag',
+      modalUpdateDevice: 'modal-device',
+      modalTagDevice: 'modal-device-tag',
+      modalAttributesListDevice: 'modal-device-attributes',
+      modalBtUpdateDevice: 'bt-modal-confirm-update-device',
+      modalBtCancelDevice: 'bt-modal-cancel-update-device',
+      modalBtDeleteDevice: 'bt-modal-delete-device',
+      modalBtAddAttribute: 'modal-add-attribute',
+      modalBtConfigMqtt: 'bt-config-mqtt',
+      modalMqttConfig: 'modal-config-mqtt',
+      inputMqttClient: 'input-mqtt-client',
+      inputMqttPort: 'input-mqtt-port',
+      inputMqttUser: 'input-mqtt-user',
+      inputMqttPassword: 'input-mqtt-password',
+      inputMqttUrl: 'input-mqtt-url',
+      inputMqttInterval: 'input-mqtt-interval',
+      modalMqttSave: 'bt-confirm-mqtt-config',
+      modalMqttCancel: 'bt-cancel-mqtt-config',
+      btStartMqtt: 'bt-start-mqtt'
+    })
+  }
+  require('electron').remote.getCurrentWindow().on('close', async (e) => {
+    await storageManager.save()
   })
+} catch (error) {
+  console.log(error)
 }
-require('electron').remote.getCurrentWindow().on('close', async (e) => {
-  await storageManager.save()
-})

@@ -6,17 +6,27 @@ export default class MqttController {
     this.deviceRepository = deviceRepository
     this.mqtt = mqtt
     this.load()
+    this.setConfig()
   }
 
   getConfig () {
     return this.config
   }
 
+  setConfig () {
+    const url = this.config.url
+    const config = {
+      clienteId: this.config.clientId,
+      port: this.config.clientId,
+      username: this.config.clientId,
+      password: this.config.clientId
+    }
+    this.mqtt.changeConfig(url, config)
+  }
+
   async saveConfig ({ clientId, port, username, password, url, interval }) {
     if (clientId.trim().length > 0 &&
         port.trim().length > 0 &&
-        username.trim().length > 0 &&
-        password.trim().length > 0 &&
         url.trim().length > 0 &&
         (interval > 0)
     ) {
@@ -24,6 +34,7 @@ export default class MqttController {
       await this.disconnect()
       this.status = false
       this.config = { clientId, port, username, password, url, interval }
+      this.setConfig()
       this.save()
       return true
     } else {
@@ -31,27 +42,39 @@ export default class MqttController {
     }
   }
 
-  connect () {
+  async connect () {
     this.status = true
-    return new Promise(resolve => resolve('conectado'))
+    const url = this.config.url
+    const config = {
+      clienteId: this.config.clientId,
+      port: this.config.clientId,
+      username: this.config.clientId,
+      password: this.config.clientId
+    }
+    return new Promise(resolve => resolve(this.mqtt.connect(url, config)))
   }
 
-  disconnect () {
+  async disconnect () {
     this.status = false
-    return new Promise(resolve => resolve('desconectado'))
+    return new Promise(resolve => resolve(this.mqtt.disconnect()))
   }
 
   sendData () {
     const time = this.config.interval * 1000
     this.timeInterval = setInterval(() => {
-      const devices = this.deviceRepository.getData('devices')
-
-      for (const device of devices) {
-        if (device.state) {
-          const attr = Device.transformArrayToObject(device.attributes)
-          console.log('ON' + device.tag, attr)
-          this.mqtt.sendData(device.tag, attr)
+      if (this.mqtt.running) {
+        const devices = this.deviceRepository.getData('devices')
+        for (const device of devices) {
+          if (device.state) {
+            const attr = Device.transformArrayToObject(device.attributes)
+            console.log('ON' + device.tag, attr)
+            this.mqtt.sendData(device.tag, attr)
+          }
         }
+      } else {
+        this.stopData()
+        this.disconnect()
+        this.status = false
       }
     }, time)
   }
