@@ -31,8 +31,8 @@ export function simpleAlert (message, type = 'warning') {
 export function buttonActionMqtt (buttonId, mqttController) {
   const btStartMqtt = document.getElementById(buttonId)
   const imageAction = btStartMqtt.querySelectorAll('img')[0]
-  let running = false
   btStartMqtt.addEventListener('click', async () => {
+    let running = mqttController.getStatus()
     try {
       if (!running) {
         await mqttController.connect()
@@ -55,4 +55,8 @@ export function buttonActionMqtt (buttonId, mqttController) {
       running = false
     }
   })
+}
+export function changeMqttButtonState (button) {
+  const imageAction = button.querySelectorAll('img')[0]
+  imageAction.setAttribute('src', '../img/play-white.svg')
 }

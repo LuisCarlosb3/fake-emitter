@@ -43,10 +43,10 @@ class MainApplication {
       modalBtUpdateDevice, modalBtCancelDevice,
       modalBtDeleteDevice, modalBtAddAttribute
     )
-
-    const mqttController = new MqttController(this.storageManager, this.mqttConnection)
+    const btStartMqtt = document.getElementById(ids.btStartMqtt)
+    const mqttController = new MqttController(this.storageManager, this.storageManager, this.mqttConnection)
     const mqttModal = new MqttModal(modalMqttConfig, mqttInputs,
-      modalMqttSave, modalMqttCancel, mqttController)
+      modalMqttSave, modalMqttCancel, mqttController, btStartMqtt)
 
     const deviceController = new DeviceController(this.storageManager)
     const deviceList = new DeviceList(deviceListEl, deviceController, modalElement, updateModalEl)

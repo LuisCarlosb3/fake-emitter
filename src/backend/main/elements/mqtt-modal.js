@@ -1,11 +1,12 @@
-import { simpleAlert } from '../../events/events-factory.js'
+import { simpleAlert, changeMqttButtonState } from '../../events/events-factory.js'
 export default class MqttModal {
-  constructor (modal, inputs, btSave, btCancel, mqttController) {
+  constructor (modal, inputs, btSave, btCancel, mqttController, buttonAction) {
     this.modal = modal
     this.inputs = inputs
     this.btSave = btSave
     this.btCancel = btCancel
     this.mqttController = mqttController
+    this.buttonAction = buttonAction
   }
 
   openModal () {
@@ -24,6 +25,7 @@ export default class MqttModal {
       }
       const response = await this.mqttController.saveConfig(inputs)
       if (response) {
+        changeMqttButtonState(this.buttonAction)
         this.closeModal()
       } else {
         simpleAlert('Insert correct values')

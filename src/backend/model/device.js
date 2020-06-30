@@ -9,4 +9,12 @@ export default class Device {
   changeState () {
     this.state = !this.state
   }
+
+  static transformArrayToObject (attributes) {
+    const attributesObj = {}
+    for (const attr of attributes) {
+      attributesObj[attr.name] = attr.value
+    }
+    return attributesObj
+  }
 }
