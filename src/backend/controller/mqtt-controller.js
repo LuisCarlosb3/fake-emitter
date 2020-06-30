@@ -15,25 +15,29 @@ export default class MqttController {
 
   setConfig () {
     const url = this.config.url
+    const topic = this.config.topic
     const config = {
       clienteId: this.config.clientId,
-      port: this.config.clientId,
-      username: this.config.clientId,
-      password: this.config.clientId
+      port: this.config.port,
+      keepalive: 60,
+      reconnectPeriod: 1000,
+      username: this.config.username,
+      password: this.config.password
     }
-    this.mqtt.changeConfig(url, config)
+    this.mqtt.changeConfig(url, config, topic)
   }
 
-  async saveConfig ({ clientId, port, username, password, url, interval }) {
+  async saveConfig ({ clientId, port, username, password, url, topic, interval }) {
     if (clientId.trim().length > 0 &&
         port.trim().length > 0 &&
+        topic.trim().length > 0 &&
         url.trim().length > 0 &&
         (interval > 0)
     ) {
       this.stopData()
       await this.disconnect()
       this.status = false
-      this.config = { clientId, port, username, password, url, interval }
+      this.config = { clientId, port, username, password, url, topic, interval }
       this.setConfig()
       this.save()
       return true
@@ -67,7 +71,6 @@ export default class MqttController {
         for (const device of devices) {
           if (device.state) {
             const attr = Device.transformArrayToObject(device.attributes)
-            console.log('ON' + device.tag, attr)
             this.mqtt.sendData(device.tag, attr)
           }
         }
