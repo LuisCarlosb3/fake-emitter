@@ -8,9 +8,3 @@
  * Configure MqTT conection
  * Send devices information to MqTT Server
  * Change device state to stop information send
-
-### Screenshots
-
-![Home](https://github.com/LuisCarlosb3/fake-emitter/blob/master/resources/150304.png)
-![New Device](https://github.com/LuisCarlosb3/fake-emitter/blob/master/resources/150357.png)
-![MqttConfiguration](https://github.com/LuisCarlosb3/fake-emitter/blob/master/resources/144618.png)
