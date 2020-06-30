@@ -1,4 +1,4 @@
-import { simpleAlert } from '../events/events-factory.js'
+import { simpleAlert, changeMqttButtonState } from '../events/events-factory.js'
 const mqtt = require('mqtt')
 export default class MqttConnection {
   constructor (url, config, topic) {
@@ -53,6 +53,7 @@ export default class MqttConnection {
       if (err) {
         simpleAlert('MQTT Disconnected, check configs', 'error')
         MqttConnection.connection.end()
+        changeMqttButtonState()
         console.log(err)
         this.running = false
       }

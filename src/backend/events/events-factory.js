@@ -56,7 +56,8 @@ export function buttonActionMqtt (buttonId, mqttController) {
     }
   })
 }
-export function changeMqttButtonState (button) {
+export function changeMqttButtonState () {
+  const button = document.getElementById('bt-start-mqtt')
   const imageAction = button.querySelectorAll('img')[0]
   imageAction.setAttribute('src', '../img/play-white.svg')
 }
