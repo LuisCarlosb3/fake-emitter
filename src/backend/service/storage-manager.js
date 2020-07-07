@@ -5,7 +5,7 @@ const { promisify } = require('util')
 const readFileAsync = promisify(fs.readFile)
 const writeFileAsync = promisify(fs.writeFile)
 
-export default class StorageManager {
+module.exports = {
   async load () {
     const filePath = this.getPath('userData')
     console.log(filePath)
@@ -16,8 +16,7 @@ export default class StorageManager {
       this.data = { devices: [], configuration: {} }
       fs.writeFileSync(filePath, JSON.stringify(this.data))
     })
-  }
-
+  },
   async save () {
     try {
       const filePath = this.getPath('userData')
@@ -26,21 +25,17 @@ export default class StorageManager {
     } catch (error) {
       this.errorStore(error)
     }
-  }
-
+  },
   getData (attribute) {
     return this.data[attribute]
-  }
-
+  },
   setData (attributeName, dataToStore) {
     this.data[attributeName] = dataToStore
-  }
-
+  },
   async errorStore (err) {
     const filePath = this.getPath('errors')
     await writeFileAsync(filePath, err)
-  }
-
+  },
   getPath (file) {
     const userDataPath = (electron.app || electron.remote.app).getPath(file)
     const filePath = path.join(userDataPath, `${file}.json`)
