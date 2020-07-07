@@ -12,7 +12,7 @@ function createWindow () {
     }
   })
   // and load the index.html of the app.
-  win.loadFile('src/views/index.html')
+  win.loadFile('src/frontend/views/index.html')
   // false to resize
   win.setResizable(false)
   // Build menu from template

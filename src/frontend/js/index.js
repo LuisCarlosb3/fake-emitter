@@ -1,21 +1,11 @@
-import DeviceList from './elements/device-list.js'
-import DeviceController from '../controller/device-controller.js'
-import MqttController from '../controller/mqtt-controller.js'
-import StorageManager from '../service/storage-manager.js'
 import AddDeviceModal from './elements/add-device-modal.js'
-import UpdateDeviceModal from './elements/update-device-modal.js'
-import MqttModal from './elements/mqtt-modal.js'
-import MqttConnection from '../service/mqtt-connection.js'
-import { buttonOpenModal, buttonCloseModal, buttonAddDevice, buttonActionMqtt } from '../events/events-factory.js'
+import { buttonOpenModal, buttonCloseModal, buttonAddDevice, buttonActionMqtt } from './events-factory.js'
 class MainApplication {
-  constructor (storageManager, mqttConnection) {
-    this.storageManager = storageManager
-    this.mqttConnection = mqttConnection
-  }
-
   async config (ids) {
+    const modalElement = new AddDeviceModal(ids.modalAddDevice, ids.newTagDeviceInput)
+
     const deviceListEl = document.getElementById(ids.devicesList)
-    const modalAddDevice = document.getElementById(ids.modalAddDevice)
+    const modalAddDevice = document.getElementById()
     const inputNewDeviceTag = document.getElementById(ids.newTagDeviceInput)
 
     const modalUpdateDevice = document.getElementById(ids.modalUpdateDevice)
@@ -36,8 +26,6 @@ class MainApplication {
     mqttInputs.interval = document.getElementById(ids.inputMqttInterval)
     const modalMqttSave = document.getElementById(ids.modalMqttSave)
     const modalMqttCancel = document.getElementById(ids.modalMqttCancel)
-
-    const modalElement = new AddDeviceModal(modalAddDevice)
 
     const updateModalEl = new UpdateDeviceModal(
       modalUpdateDevice, modalTagDevice, modalAttributesListDevice,
@@ -75,9 +63,9 @@ class MainApplication {
   }
 }
 try {
-  const storageManager = new StorageManager()
-  const mqttConnection = new MqttConnection()
   window.onload = async function () {
+    const storageManager = new StorageManager()
+    const mqttConnection = new MqttConnection()
     await storageManager.load()
     const application = new MainApplication(storageManager, mqttConnection)
     application.config({
@@ -108,9 +96,10 @@ try {
       btStartMqtt: 'bt-start-mqtt'
     })
   }
-  require('electron').remote.getCurrentWindow().on('close', async (e) => {
-    await storageManager.save()
-  })
+  // Mudar para event
+  // require('electron').remote.getCurrentWindow().on('close', async (e) => {
+  //   await storageManager.save()
+  // })
 } catch (error) {
   console.log(error)
 }

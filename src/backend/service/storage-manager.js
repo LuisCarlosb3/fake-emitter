@@ -8,9 +8,11 @@ const writeFileAsync = promisify(fs.writeFile)
 export default class StorageManager {
   async load () {
     const filePath = this.getPath('userData')
+    console.log(filePath)
     return readFileAsync(filePath, 'utf-8').then(data => {
       this.data = JSON.parse(data)
-    }).catch(() => {
+    }).catch((err) => {
+      console.log(err)
       this.data = { devices: [], configuration: {} }
       fs.writeFileSync(filePath, JSON.stringify(this.data))
     })

@@ -1,4 +1,4 @@
-import { simpleAlert, changeMqttButtonState } from '../events/events-factory.js'
+import { simpleAlert, changeMqttButtonState } from '../../frontend/js/events-factory.js'
 const mqtt = require('mqtt')
 export default class MqttConnection {
   constructor (url, config, topic) {
@@ -41,8 +41,12 @@ export default class MqttConnection {
   }
 
   sendData (tag, data) {
-    if (this.running) {
-      MqttConnection.connection.publish(tag, JSON.stringify(data))
+    try {
+      if (this.running) {
+        MqttConnection.connection.publish(tag, JSON.stringify(data))
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
