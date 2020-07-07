@@ -1,6 +1,6 @@
-import Device from '../model/device.js'
+const Device = require('../model/device')
 
-export default class DeviceController {
+module.exports = class DeviceController {
   constructor (deviceRepository) {
     this.devices = []
     this.deviceRepository = deviceRepository

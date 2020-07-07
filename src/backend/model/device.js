@@ -1,4 +1,4 @@
-export default class Device {
+module.exports = class Device {
   constructor (tag, id, attributes, state) {
     this.id = id || Date.now()
     this.tag = tag
