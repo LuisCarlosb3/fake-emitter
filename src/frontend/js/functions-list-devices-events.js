@@ -7,6 +7,10 @@ export function initializeList (deviceModal) {
   const response = ipcRenderer.sendSync('device:load')
   const deviceList = document.getElementById(elements.deviceListId)
   if (response) {
+    while (deviceList.lastElementChild) {
+      deviceList.removeChild(deviceList.lastElementChild)
+    }
+    console.log(deviceModal)
     for (const device of response) {
       const item = createDeviceItem(device, deviceModal)
       deviceList.appendChild(item)
@@ -22,8 +26,10 @@ export function handleListChanges (deviceModal) {
   ipcRenderer.on('device:deleted', (event, deviceId) => {
     document.getElementById(deviceId).remove()
   })
+  ipcRenderer.on('device:updated', (event, device) => {
+    initializeList(deviceModal)
+  })
 }
-
 function createDeviceItem (device, deviceModal) {
   const template = document.getElementById(elements.deviceItemTemplateId)
   const templateEl = template.content.querySelectorAll('div')

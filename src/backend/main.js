@@ -35,6 +35,13 @@ module.exports = class MainApplication {
       }
       event.returnValue = isDeleted
     })
+    ipcMain.on('device:update', (event, device) => {
+      const response = deviceController.updateAttribute(device)
+      if (response) {
+        this.mainWindow.webContents.send('device:updated', device)
+      }
+      event.returnValue = response
+    })
     app.on('window-all-closed', async () => {
       await StorageManager.save()
     })
