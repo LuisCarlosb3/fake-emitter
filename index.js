@@ -43,8 +43,9 @@ if (process.env.NODE_ENV !== 'production') {
     ]
   })
 }
+
 app.whenReady().then(async () => {
-  const application = new MainApplication()
-  await application.run()
   createWindow()
+  const application = new MainApplication(win)
+  await application.run()
 })

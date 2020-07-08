@@ -13,6 +13,17 @@ export function initializeList (deviceModal) {
     }
   }
 }
+export function handleListChanges (deviceModal) {
+  ipcRenderer.on('device:created', (event, device) => {
+    const deviceList = document.getElementById(elements.deviceListId)
+    const item = createDeviceItem(device, deviceModal)
+    deviceList.appendChild(item)
+  })
+  ipcRenderer.on('device:deleted', (event, deviceId) => {
+    document.getElementById(deviceId).remove()
+  })
+}
+
 function createDeviceItem (device, deviceModal) {
   const template = document.getElementById(elements.deviceItemTemplateId)
   const templateEl = template.content.querySelectorAll('div')
