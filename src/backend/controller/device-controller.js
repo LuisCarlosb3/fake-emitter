@@ -56,7 +56,7 @@ module.exports = class DeviceController {
   delete (index) {
     let isDeleted = false
     this.devices = this.devices.filter((value) => {
-      if (value.id !== index) {
+      if (value.id.toString() !== index.toString()) {
         return true
       }
       isDeleted = true
