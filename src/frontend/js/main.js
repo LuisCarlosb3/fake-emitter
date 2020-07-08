@@ -5,5 +5,7 @@ function initializeElements () {
   openAddDeviceModal()
   closeAddDeviceModal()
   submitAddDeviceModal()
+  // List devices modal
+  initializeList()
 }
 window.onload = initializeElements
