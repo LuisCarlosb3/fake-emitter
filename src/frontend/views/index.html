@@ -12,7 +12,7 @@
 </head>
 <body>
   <!--device list template-->
-  <template>
+  <template id="device-item-template">
     <div  class="device-item">
       <div class="device-item-name"></div>
       <div class="device-item-status">
@@ -80,6 +80,7 @@
         <div class="input-container">
           <label class="input-label">TAG </label>
           <input class="model-input" id="modal-device-tag">
+          <input type="hidden" id="modal-device-id">
         </div>
         <div class="attributes-title-container">
           <label class="input-label">Attributes </label>
