@@ -3,17 +3,17 @@ const elements = {
   deviceListId: 'devices-list',
   deviceItemTemplateId: 'device-item-template'
 }
-export function initializeList () {
+export function initializeList (deviceModal) {
   const response = ipcRenderer.sendSync('device:load')
   const deviceList = document.getElementById(elements.deviceListId)
   if (response) {
     for (const device of response) {
-      const item = createDeviceItem(device)
+      const item = createDeviceItem(device, deviceModal)
       deviceList.appendChild(item)
     }
   }
 }
-function createDeviceItem (device) {
+function createDeviceItem (device, deviceModal) {
   const template = document.getElementById(elements.deviceItemTemplateId)
   const templateEl = template.content.querySelectorAll('div')
   const templateDeviceDiv = templateEl[0]
@@ -44,8 +44,7 @@ function createDeviceItem (device) {
   tagDiv.appendChild(document.createTextNode(`${device.tag}`))
   tagDiv.setAttribute('id', `tag-${device.id}`)
   tagDiv.addEventListener('click', () => {
-    // abrir modal do dispositivo
-    console.log('abre', tagDiv.id)
+    deviceModal(device)
   })
   deviceDiv.setAttribute('id', device.id)
 
