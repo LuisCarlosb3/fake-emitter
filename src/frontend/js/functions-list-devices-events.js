@@ -34,9 +34,8 @@ function createDeviceItem (device) {
   statusDivInput.checked = device.state
   statusDivInput.id = buttonStateId
   statusDivInput.addEventListener('click', () => {
-    // muda status do botão
-    // this.changeStatus(device.id, statusDivInput)
-    console.log('muda', statusDivInput.checked)
+    const newState = ipcRenderer.sendSync('device:state', device.id)
+    statusDivInput.checked = newState
   })
   statusDivLabel.appendChild(statusDivInput)
   statusDivLabel.appendChild(statusDivSpan)

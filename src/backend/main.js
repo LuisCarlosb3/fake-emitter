@@ -16,6 +16,10 @@ module.exports = class MainApplication {
       const devices = deviceController.getDevices()
       event.returnValue = devices
     })
+    ipcMain.on('device:state', (event, deviceId) => {
+      const state = deviceController.updateState(deviceId)
+      event.returnValue = state
+    })
 
     app.on('window-all-closed', async () => {
       await StorageManager.save()
