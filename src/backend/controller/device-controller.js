@@ -27,11 +27,11 @@ module.exports = class DeviceController {
 
   updateAttribute (deviceUpdated) {
     const alreadyExist = this.devices.filter(value => {
-      return (value.tag === deviceUpdated.tag && value.id !== deviceUpdated.id)
+      return (value.tag === deviceUpdated.tag && value.id.toString() !== deviceUpdated.id.toString())
     })
     if (alreadyExist.length === 0) {
       for (const key in this.devices) {
-        if (this.devices[key].id === deviceUpdated.id) {
+        if (this.devices[key].id.toString() === deviceUpdated.id.toString()) {
           this.devices[key] = deviceUpdated
           this.save()
         }
