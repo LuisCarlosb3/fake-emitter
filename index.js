@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Menu } = require('electron')
+const MainApplication = require('./src/backend/main')
 let win
 function createWindow () {
   // Create the browser window.
@@ -42,4 +43,8 @@ if (process.env.NODE_ENV !== 'production') {
     ]
   })
 }
-app.whenReady().then(createWindow)
+app.whenReady().then(async () => {
+  const application = new MainApplication()
+  await application.run()
+  createWindow()
+})
