@@ -8,14 +8,15 @@ module.exports = {
     this.eventsInitialized = false
   },
   connect () {
-    if (!this.connection) {
+    if (!this.connection || !this.connection.disconnect) {
       this.connection = mqtt.connect(this.url, this.config)
     }
     this.connection.on('connect', () => {
       console.log('connected')
-      this.connection.subscribe(this.topic)
+      // this.connection.subscribe(this.topic)
     })
     this.connection.on('message', (topic, msg) => {
+      console.log(topic, msg.toString())
     })
     if (!this.eventsInitialized) {
       this.initializeEvents()
@@ -45,10 +46,8 @@ module.exports = {
     this.connection.on('close', () => { console.log('mqtt client disconnected') })
     this.connection.on('error', err => {
       if (err) {
-        this.connection.end()
-        this.connect()
-        console.log(err.message)
-        this.running = false
+        this.disconnect()
+        console.log(err)
       }
     })
   }

@@ -66,6 +66,8 @@ function saveConfigurationEvent () {
   const url = document.getElementById(elements.inputMqttUrl).value
   const topic = document.getElementById(elements.inputMqttTopic).value
   const interval = document.getElementById(elements.inputMqttInterval).value
+  const btRunMqtt = document.getElementById(elements.btStartMqtt)
+  const imageAction = btRunMqtt.querySelectorAll('img')[0]
 
   if (
     clientId.trim() === '' ||
@@ -87,6 +89,7 @@ function saveConfigurationEvent () {
       interval
     }
     ipcRenderer.send('mqtt:save', config)
+    imageAction.setAttribute('src', '../img/play-white.svg')
     closeMqttModal()
   }
 }
