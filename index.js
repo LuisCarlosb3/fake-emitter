@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Menu } = require('electron')
 const MainApplication = require('./src/backend/main')
 let win
+let consoleWindow
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
@@ -24,7 +25,29 @@ function createWindow () {
     app.quit()
   })
 }
+function createConsoleWindow () {
+  consoleWindow = new BrowserWindow({
+    width: 450,
+    height: 450,
+    title: 'Console',
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+  consoleWindow.loadFile('src/frontend/views/console.html')
+  // Insert menu
+  consoleWindow.on('close', function () {
+    consoleWindow = null
+  })
+  // consoleWindow.setMenu(null)
+}
 const mainMenuTemplate = [
+  {
+    label: 'File',
+    click () {
+      createConsoleWindow()
+    }
+  }
 ]
 if (process.env.NODE_ENV !== 'production') {
   mainMenuTemplate.push({

@@ -1,4 +1,5 @@
 const mqtt = require('mqtt')
+const console = require('./console-event')
 module.exports = {
   setConfig (url, config, topic) {
     this.url = url
@@ -12,11 +13,12 @@ module.exports = {
       this.connection = mqtt.connect(this.url, this.config)
     }
     this.connection.on('connect', () => {
-      console.log('connected')
+      console('connected')
       // this.connection.subscribe(this.topic)
     })
     this.connection.on('message', (topic, msg) => {
-      console.log(topic, msg.toString())
+      console.log(topic)
+      console(`${topic} \n ${msg.toString()}`)
     })
     if (!this.eventsInitialized) {
       this.initializeEvents()
@@ -43,7 +45,7 @@ module.exports = {
 
   initializeEvents () {
     this.eventsInitialized = true
-    this.connection.on('close', () => { console.log('mqtt client disconnected') })
+    this.connection.on('close', () => { console('mqtt client disconnected') })
     this.connection.on('error', err => {
       if (err) {
         this.disconnect()
