@@ -1,6 +1,6 @@
 {
   "name": "fakemqtt",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An Application for send data to Mqtt broker",
   "main": "index.js",
   "scripts": {
