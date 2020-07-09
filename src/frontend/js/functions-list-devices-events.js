@@ -10,7 +10,6 @@ export function initializeList (deviceModal) {
     while (deviceList.lastElementChild) {
       deviceList.removeChild(deviceList.lastElementChild)
     }
-    console.log(deviceModal)
     for (const device of response) {
       const item = createDeviceItem(device, deviceModal)
       deviceList.appendChild(item)
