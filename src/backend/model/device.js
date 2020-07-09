@@ -10,6 +10,11 @@ module.exports = class Device {
     this.state = !this.state
   }
 
+  updateState (tag, attributes) {
+    this.tag = tag
+    this.attributes = attributes
+  }
+
   static transformArrayToObject (attributes) {
     const attributesObj = {}
     for (const attr of attributes) {

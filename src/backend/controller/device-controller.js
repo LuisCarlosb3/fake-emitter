@@ -32,7 +32,7 @@ module.exports = class DeviceController {
     if (alreadyExist.length === 0) {
       for (const key in this.devices) {
         if (this.devices[key].id.toString() === deviceUpdated.id.toString()) {
-          this.devices[key] = deviceUpdated
+          this.devices[key].updateState(deviceUpdated.tag, deviceUpdated.attributes)
           this.save()
         }
       }
@@ -44,7 +44,7 @@ module.exports = class DeviceController {
   updateState (deviceDataId) {
     let newState
     for (const dev of this.devices) {
-      if (dev.id === deviceDataId) {
+      if (dev.id.toString() === deviceDataId.toString()) {
         dev.changeState()
         newState = dev.state
       }
