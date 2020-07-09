@@ -1,5 +1,5 @@
-import Device from '../model/device.js'
-export default class MqttController {
+const Device = require('../model/device')
+module.exports = class MqttController {
   constructor (configRepository, deviceRepository, mqtt) {
     this.config = {}
     this.configRepository = configRepository
@@ -24,7 +24,8 @@ export default class MqttController {
       username: this.config.username,
       password: this.config.password
     }
-    this.mqtt.changeConfig(url, config, topic)
+    this.status = false
+    this.mqtt.setConfig(url, config, topic)
   }
 
   async saveConfig ({ clientId, port, username, password, url, topic, interval }) {
