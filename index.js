@@ -27,7 +27,7 @@ function createWindow () {
 }
 function createConsoleWindow () {
   consoleWindow = new BrowserWindow({
-    width: 450,
+    width: 600,
     height: 450,
     title: 'Console',
     webPreferences: {
