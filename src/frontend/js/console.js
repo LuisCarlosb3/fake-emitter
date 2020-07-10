@@ -5,6 +5,7 @@ function consoleEvent () {
     const p = document.createElement('p')
     p.appendChild(document.createTextNode(`${arg}`))
     consoleDiv.appendChild(p)
+    p.scrollIntoView()
   })
 }
 
