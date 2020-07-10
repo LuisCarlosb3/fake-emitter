@@ -42,7 +42,7 @@ module.exports = {
       this.connection.subscribe(this.topic)
     })
     this.connection.on('message', (topic, msg) => {
-      console(`${topic} \n ${msg.toString()}`)
+      console(`${topic}: ${msg.toString()}`)
     })
     this.connection.on('close', () => { console('mqtt client disconnected') })
     this.connection.on('error', err => {
